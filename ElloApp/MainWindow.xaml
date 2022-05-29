@@ -1,0 +1,208 @@
+﻿<Window x:Class="ElloApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ElloApp" xmlns:customcontrols="clr-namespace:ElloApp.CustumControls"
+        mc:Ignorable="d"
+        x:Name="mainWindow"
+        AllowsTransparency="False"
+        Background="Transparent"
+        FontSize="15"
+        Height="643" 
+        Width="824"
+        ResizeMode="NoResize"
+        Title="ello" 
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen">
+    <!--structuring MainWindow-->
+    <Border 
+        CornerRadius="20"
+        Background="WhiteSmoke" Margin="0,0,0,-62">
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+
+                <!---colum for contact chat list-->
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="206"/>
+
+                <!---Conversation Area-->
+                <ColumnDefinition/>
+
+                <!---profil info-->
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <!---title bar-->
+
+            <Border
+                Background="#49a078"
+                CornerRadius="20,20,0,0"
+                Grid.ColumnSpan="3"
+                MouseDown="Border_MouseDown" Height="70" VerticalAlignment="Top">
+
+                <Grid Height="85" VerticalAlignment="Top">
+                    <TextBlock
+                        Text="{Binding Title, 
+                        ElementName=mainWindow}"
+                        HorizontalAlignment="Left"
+                        Margin="15,0"
+                        VerticalAlignment="Center"
+                        Foreground="White"
+                        FontSize="22"
+                        FontWeight="Bold"/>
+
+                    <!--Windowas bouton-->
+
+                    <StackPanel
+                        HorizontalAlignment="Right"
+                        Margin="10,0"
+                        Orientation="Horizontal">
+                        <Button x:Name="btnMinimize"
+                            Content="{StaticResource minimize}"
+                            Click="btnMinimize_Click"
+                            Style="{StaticResource IconButtonStyle}"/>
+                        <Button
+                            x:Name="btnMaximize"
+                            Foreground="Green"
+                            Content="{StaticResource maximize}"
+                            Click="btnMaximize_Click"
+                            Style="{StaticResource IconButtonStyle}"/>
+                        <Button
+                            x:Name="btnClose"
+                            Foreground="DarkRed"
+                            Content="{StaticResource close}"
+                            Click="btnClose_Click"
+                            Style="{StaticResource IconButtonStyle}"/>
+                    </StackPanel>
+
+                </Grid>
+
+            </Border>
+
+            <!---Contact chat list-->
+            <Grid MinWidth="406" Grid.ColumnSpan="2" Height="224" VerticalAlignment="Top">
+
+                <Grid.RowDefinitions>
+
+                    <!---title & Search Option etc-->
+                    <RowDefinition
+                        Height="Auto"/>
+
+                    <!---Searchbox -->
+                    <RowDefinition
+                        Height="Auto"/>
+
+                    <!---Status thumbs-->
+                    <RowDefinition
+                        Height="Auto"/>
+
+                    <!---Chat list -->
+                    <RowDefinition/>
+
+                </Grid.RowDefinitions>
+
+                <!---title & Search Option etc-->
+
+                <Grid Margin="4,33,4,-21" Grid.RowSpan="4">
+
+                    <Grid.ColumnDefinitions>
+
+                        <!---title-->
+                        <ColumnDefinition
+                            Width="Auto"/>
+
+                        <!---blank-->
+                        <ColumnDefinition/>
+
+                        <!---search button-->
+                        <ColumnDefinition
+                            Width="40"/>
+
+                        <!---more option button-->
+                        <ColumnDefinition
+                            Width="40"/>
+
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Text="Chats"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        FontSize="20"
+                        FontWeight="SemiBold" Grid.ColumnSpan="2" Margin="10,59,0,0"/>
+
+                    <!---search button-->
+
+                    <Button
+                        Grid.Column="2"
+                        x:Name="btnChatSearchButton"
+                        Content="{StaticResource search}"
+                        Style="{StaticResource IconButtonStyle}"/>
+
+                    <!---more option popup menu-->
+
+                    <ToggleButton 
+                        Grid.Column="3"
+                        x:Name="btnMoreOptions"
+                        Content="{StaticResource more}"
+                        Style="{StaticResource ToggleIconButtonStyle}"/>
+
+                </Grid>
+
+                <!--- #Region SearchBox-->
+
+                <!---to do: Add search box open/close and hide/unhide trigger-->
+
+                <Border
+                    Background="#dce1de"
+                    CornerRadius="15"
+                    Grid.Row="3"
+                    Margin="20,124,20,70"
+                    Height="30"
+                    x:Name="searchBoxBorder"
+                    FocusManager.FocusedElement="{Binding ElementName=searchQuery}"
+                    >
+
+                    <!--FocusManager.FocusedElement="{Binding ElementName=searchQuery} => to focus our textbox when 
+                    gets focused....-->
+
+                    <TextBox
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Name="searchQuery"
+                        Padding="12,0"
+                        Text="Search"
+                        VerticalContentAlignment="Center"
+                        VerticalAlignment="Stretch"
+                        HorizontalAlignment="Left"
+                        />
+
+                </Border>
+
+                <!--- #End Region-->
+
+                <!--#region Status Thumbnails-->
+
+                <customcontrols:StatusThumbs
+                    Grid.Row="3" 
+                    Margin="14,0,128,-56" Height="146" VerticalAlignment="Bottom"
+                   />
+
+                <!--- #endregion-->
+
+                <!--#region ChatList-->
+                <customcontrols:ChatList Grid.Row="3" Margin="-15,262,-12,-451" />
+                <!--#End region-->
+
+
+            </Grid>
+        </Grid>
+    </Border>
+</Window>
